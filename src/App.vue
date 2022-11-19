@@ -1,30 +1,21 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <vFooter></vFooter>
   </div>
 </template>
 
 <script>
 
+import vFooter from './components/v-footer.vue'
 
 export default {
   name: 'App',
-  components: {
-    
-  },
+  components: { vFooter },
   data() {
   
   },
-  computed: {
-  
-  },
-    
-  methods: {
 
-  },
-  mounted() {
-   
-  }
 }
 </script>
 

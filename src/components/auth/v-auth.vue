@@ -1,30 +1,22 @@
 <template>
-    <AllHeader :namePage="namePage"></AllHeader>
     <div style="height: 500px">
         <div class="authBox">
             <h2 class="h2-auth-boxes">Auth</h2>
             <div class="inputs-auth">
-                <input class="auth-input" type="text" placeholder="login" v-model="login">
+                <input class="auth-input" type="text" placeholder="username" v-model="login">
                 <input class="auth-input" type="text" placeholder="password" v-model="password">
             </div>
             <button class="auth-btn" @click="setLogin()">Вход</button>
             <button class="auth-btn" @click="$router.push('/reg')">Регистрация</button>
         </div>
     </div>
-    <HomeFooter></HomeFooter>
 </template>
 
 <script>
 import axios from 'axios';
-import AllHeader from "../v-header.vue"
-import HomeFooter from '../home/v-footer.vue' 
 
 export default {
     name: 'HomeAuth',
-    components: {
-        AllHeader,
-        HomeFooter,
-    },
     data() {
         return {
             login: '',
@@ -36,23 +28,21 @@ export default {
         }
     },
     methods: {
-        setLogin() {
-            axios({
-                method: 'post',
-                url: 'http://127.0.0.1:8000/auth/token/login/',
+        async setLogin() {
+            await axios({
+                method: 'POST',
+                url: "http://localhost:5000/auth/login/",
                 data: {
                     username: this.login,
                     password: this.password,
                 }
             })
             .then((response) => {
-                sessionStorage.setItem("auth_token", response.data.auth_token)
+                sessionStorage.setItem("auth_token", response.data.token)
                 this.$router.push('/')
             })
             .catch((error) => {
-                if (error.response.status === 400) {
-                    alert("Не верный логин или пароль")
-                }              
+                console.log(error)             
             })
         }
         /*loadPage() {

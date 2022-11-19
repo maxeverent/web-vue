@@ -1,8 +1,7 @@
 <template>
     <addPopUp v-if="addPopUpStatus" class="pop-up" :popUpStatus="addPopUpStatus" @add="addCabinet" @cancel="cancel"></addPopUp>
     <editPopUp v-if="cabinet.editPopUpStatus" class="pop-up" :cabinet="cabinet" @edit="editCabinet" @cancel="cancel"></editPopUp>
-    <div v-if="addPopUpStatus || cabinet.editPopUpStatus" class="pop-up-wrapper"></div>
-    <allHeader :namePage="namePage" :authAdmin="authAdmin" :authUser="authUser"></allHeader>
+
     <div class="wrapper">
         <div class="table">
             <label class="table-title">Cabinets</label>
@@ -24,16 +23,14 @@
                 ></rowTable>           
         </div>
     </div>
-    <vFooter class="footer"></vFooter>
 </template>
 
 <script>
 
-import allHeader from '../v-header.vue'
+//import allHeader from '../v-header.vue'
 import rowTable from '../cabintes/v-row-table.vue'
 import addPopUp from './v-pop-up.vue'
 import editPopUp from './v-edit-pop-up.vue'
-import vFooter from '../home/v-footer.vue'
 
 import axios from 'axios'
 
@@ -55,18 +52,16 @@ export default {
     },
     name: 'V-Cabinets',
     components: { 
-        allHeader,
         rowTable,
         addPopUp,
         editPopUp,
-        vFooter,
     },
     methods: {
-        loadPage() {
-           axios({
+        async loadPage() {
+           await axios({
                 method: "GET",
-                headers: {'Authorization': "Token " + sessionStorage.getItem("auth_token")},
-                url: "http://127.0.0.1:8000/api/dj-auth/"
+                headers: {'Authorization': "Bearer " + sessionStorage.getItem("auth_token")},
+                url: "http://localhost:5000/auth/users/"
             })
             .then((response => {
                 console.log(response)
@@ -83,8 +78,8 @@ export default {
                 console.log(this.authAdmin)
             }
         },
-        loadCabinets() {
-            axios({url: "http://127.0.0.1:8000/api/cabinets/"})
+        async loadCabinets() {
+            await axios({url: "http://localhost:5000/cabinet/get/", method: "GET"})
                 .then(response => {
                     console.log(response)
                     this.cabinets = response.data
@@ -92,15 +87,15 @@ export default {
                 })
                 .catch(err => console.log(err))     
         },
-        deleteCabinet(data) {
-            axios({
+        async deleteCabinet(data) {
+            await axios({
                 method: "DELETE",
                 url: "http://127.0.0.1:8000/api/cabinets/"+ data.id + "/"
             }).catch(err => console.log(err))
             this.cabinets.splice(data.index, 1)
         },
-        addCabinet(data) {
-            axios({
+        async addCabinet(data) {
+            await axios({
                 method: "POST",
                 url: "http://127.0.0.1:8000/api/cabinets/",
                 data: {
@@ -111,8 +106,8 @@ export default {
             }).then(result => console.log(result)).catch(err => console.log(err))
             this.cabinets.push(data)
         },
-        editCabinet(data) {
-            axios({
+        async editCabinet(data) {
+            await axios({
                 method: "PUT",
                 url: "http://127.0.0.1:8000/api/cabinets/" + data.id + "/",
                 data: {
@@ -147,6 +142,12 @@ export default {
 </script>
 
 <style>
+
+    html {
+        width:100vw;
+        overflow-x:hidden;
+    }
+
     .footer {
         position: relative;
     }
@@ -161,8 +162,8 @@ export default {
 
     .pop-up-wrapper {
         width: 100%;
-        height: 125%;
-        z-index: 1;
+        height: 100%;
+        z-index: 2;
         position: absolute;
         background: black;
         opacity: 0.5
@@ -171,7 +172,7 @@ export default {
     .pop-up {
         bottom: 100px;
         position: absolute;
-        z-index: 2;
+        z-index: 3;
         top: 20%;
         left: 30%;
     }

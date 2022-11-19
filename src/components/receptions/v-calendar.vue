@@ -1,27 +1,27 @@
 <template>
     <div class="calendar">
         <div class="nav">
-        <div class="nav-items">
-            <button @click="beforePage" class="nav-item nav-btn" >back</button>
-            <label class="nav-item">{{calendar[numberPage].name_mounth}}</Label>
-            <button @click="nextPage" class="nav-item nav-btn">go</button>
-        </div>
-    </div>
-    <div class="calendar-body">
-        <div v-for="weekDay, index in weekDays" :key="index" >
-            <label class="calendar-title">{{weekDay.nameDay}}</Label>
-            <div v-if="sortDaysWeek(numberPage, weekDay.num, index) == false" class="empty-item">
-                <ui>
-                    <label>{{" "}}</label>
-                </ui>
+            <div class="nav-items">
+                <button @click="beforePage" class="nav-item nav-btn" >back</button>
+                <label class="nav-item">{{calendar[numberPage].name_mounth}}</Label>
+                <button @click="nextPage" class="nav-item nav-btn">go</button>
             </div>
-            <div class="calendar-item">
-                <ui v-for="day, index in calendar[numberPage].days" :key="index">
-                    <button v-if="weekDay.num === getWeekDay(numberPage, day)" @click="sendDay(day, calendar[numberPage].name_mounth)" class="calendar-btn">{{day}}</button>
-                </ui> 
-            </div>                                                  
-        </div> 
-    </div>
+        </div>
+        <div class="calendar-body">
+            <div v-for="weekDay, index in weekDays" :key="index" >
+                <label class="calendar-title">{{weekDay.nameDay}}</Label>
+                <div v-if="sortDaysWeek(numberPage, weekDay.num, index) == false" class="empty-item">
+                    <ui>
+                        <label>{{" "}}</label>
+                    </ui>
+                </div>
+                <div class="calendar-item">
+                    <ui v-for="day, index in calendar[numberPage].days" :key="index">
+                        <button v-if="weekDay.num === getWeekDay(numberPage, day)" @click="sendDay(day, calendar[numberPage].name_mounth)" class="calendar-btn">{{day}}</button>
+                    </ui> 
+                </div>                                                  
+            </div> 
+        </div>
     </div>
 </template>
 
@@ -159,10 +159,6 @@ export default {
         width: 60px;
         height: 60px;
         margin: 10px;
-    }
-
-    .calendar-column {
-
     }
     
 </style>

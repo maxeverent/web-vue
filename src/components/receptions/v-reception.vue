@@ -1,61 +1,123 @@
 <template>
-    <allHeader></allHeader>
     <div class="wrapper">
-        <vSpeciality v-if="page === 1" :spec="spec" @next="getSpec"></vSpeciality>
-        <vDoctor v-if="page === 2" :speciality="spec" :status="doctor" @next="getDoc" @back="back"></vDoctor>
-        <vDate v-if="page === 3"></vDate>
+        <div>
+            <label>{{selectedSpec}}</label>
+            <button v-for="spec, key in speciality" :key="key" @click="selectSpec(spec.name)">{{spec.name}}</button>
+        </div>
+        <div>
+            <label>{{selectedDoc}}</label>
+            <button v-for="doc, key in doctor" :key="key" @click="selectDoc(doc)">{{doc.fname + ' ' + doc.fname + ' ' + doc.patronymic}}</button>
+        </div>
+        <div>
+            <label>{{selectedDate}}</label>
+            <vCalendar @date="date"></vCalendar>
+            <button @click="getFreeDate(doc.id, selectedDate)">Получить свободное время</button>
+            <button v-for="date, key in freeDate" :key="key" @click="selectDate(date)">{{date}}</button>
+        </div>
+        <div>
+            <button @click="reception">Записаться</button>
+        </div>
     </div>
-    <vFooter></vFooter>
 </template>
 
 <script>
 
-import allHeader from '../v-header.vue'
-import vFooter from '../home/v-footer.vue'
-import vSpeciality from '../receptions/v-speciality.vue'
-import vDoctor from '../receptions/v-doctor.vue'
-import vDate from '../receptions/v-date.vue'
+import vCalendar from '../receptions/v-calendar.vue'
+
+import axios from 'axios'
 
 export default {
     data() {
         return {
-            page: 1,
-            spec: 'Не выбрано',
-            doctor: 'Не выбрано',
-            date: '',
-            reception: {
-                fname: '',
-                sname: '',
-                patronymic: '',
-                date: '',
-                auth_token: '',
-                doctor_id: '',
-            }
+            selectedSpec: '',
+            selectedDoc: '',
+            selectedDate: '',
+            speciality: [],  
+            doctor: [],
+            doc: [],
+            freeDate: [], 
         }
     },
     name: 'vReceptions',
-    components: {
-        allHeader,
-        vSpeciality,
-        vDoctor,
-        vDate,
-        vFooter,
-    },
+    components: { vCalendar },
     methods: {
-        back(data) {
-            this.page = data
+        async loadSpeciality() {
+            await axios({url: "http://localhost:5000/speciality/get"})
+                .then(response => {
+                    console.log(response)
+                    this.speciality = response.data
+                    console.log(this.speciality)
+                })
+                .catch(err => console.log(err))     
         },
-        getSpec(data) {
-            this.page = data.page,
-            this.spec = data.spec
+        async loadDoctor() {
+            await axios({url: "http://localhost:5000/doctor/get"})
+                .then(response => {
+                    console.log(response)
+                    const doctor = response.data
+                    this.doctor = []
+                    for (let i = 0; i < doctor.length; ++i) {
+                        if (doctor[i].speciality == this.selectedSpec) {
+                            this.doctor.push(doctor[i])
+                        }
+                    }
+                    console.log(this.doctor)
+                })
+                .catch(err => console.log(err))     
         },
-        getDoc(data) {
-            this.page = data.page,
-            this.doctor = data.doc
+        selectSpec(spec) {
+            this.selectedSpec = spec
+            this.loadDoctor()
+        },
+        selectDoc(doc) {
+            this.selectedDoc = doc.fname + ' ' + doc.fname + ' ' + doc.patronymic
+            this.doc = doc
+        },
+        async getFreeDate(doc, selectedDate) {
+            console.log(doc, selectedDate)
+            await axios({
+                    method: "GET",
+                    url: "http://localhost:5000/reception/getfreedate/" + doc + "/" + selectedDate,
+                })
+                .then(response => {
+                    console.log(response)
+                    this.freeDate = response.data
+                    console.log(this.freeDate)
+                })
+                .catch(err => console.log(err))  
+        },
+        selectDate(date) {
+            this.selectedDate = this.selectedDate + ' ' + date
+        },
+        async reception() {
+            await axios({
+                    method: "POST",
+                    url: "http://localhost:5000/reception/create/",
+                    headers: {'Authorization': "Bearer " + sessionStorage.getItem("auth_token")},
+                    data: {
+                        fname: this.doc.fname,
+                        sname: this.doc.sname,
+                        patronymic: this.doc.patronymic,
+                        doctor_id: Number(this.doc.id),
+                        date: this.selectedDate,
+                    }
+                })
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(err => console.log(err))  
+        },
+        date(data) {
+            this.selectedDate = data[0] + ' ' + data[1] + ' ' + '22'
         }
+    },
+    created() {
+        this.loadSpeciality()
     }
 }
 
 </script>
 
-<style></style>
+<style>
+
+</style>

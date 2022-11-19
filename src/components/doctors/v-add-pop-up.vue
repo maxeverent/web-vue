@@ -1,10 +1,13 @@
 <template>
+    <div class="pop-up-wrapper"></div>
     <div class="pop-up">
         <h1>Add</h1>
         <input v-model="doctor.fname" type="text" placeholder="First name" class="pop-up-input">
         <input v-model="doctor.sname" type="text" placeholder="Second name" class="pop-up-input">
         <input v-model="doctor.patronymic" type="text" placeholder="Patronymic" class="pop-up-input">
-        <input v-model="doctor.speciality" type="text" placeholder="Speciality" class="pop-up-input">
+        <select v-model="selectedSpeciality">
+            <option v-for="spec, key in speciality" :key="key">{{spec.name}}</option>
+        </select>
         <select v-model="selectedCabinet">
             <option v-for="cabinet, key in cabinets" :key="key">{{cabinet.number}}</option>
         </select>
@@ -27,12 +30,13 @@ export default {
                 cabinet_id: '',
             },
             selectedCabinet: '',
+            selectedSpeciality: '',
         }
     },
     name: 'addPopUp',
     props: {
-        popUpStatus: Boolean,
-        cabinets: Object
+        cabinets: Object,
+        speciality: Object,
     },
     methods: {
         cancel() {
@@ -40,11 +44,8 @@ export default {
             this.$emit('cancel', this.status)
         },
         addDoctor() {
-            for (let i = 0; i < this.cabinets.length; ++i) {
-                if (this.selectedCabinet === this.cabinets[i].number) {
-                    this.doctor.cabinet_id = this.cabinets[i].id
-                }
-            }
+            this.doctor.speciality = this.selectedSpeciality,
+            this.doctor.cabinet_id = this.selectedCabinet,
             this.$emit('add', this.doctor)
             this.cancel()
         },

@@ -7,21 +7,21 @@
             <div class="header-items">
                 <ul class="items">
                     <li @click="$router.push('/')" class="item">Home</li>
-                    <li @click="$router.push('/doctors')" class="item">Doctors</li>
-                    <li @click="$router.push('/cabinets')" class="item">Cabinets</li>
-                    <li @click="$router.push('/reception')" class="item">Reception</li>
+                    <li @click="$router.push('/doctors/Doctors')" class="item">Doctors</li>
+                    <li @click="$router.push('/cabinets/Cabinets')" class="item">Cabinets</li>
+                    <li @click="$router.push('/reception/Reception')" class="item">Reception</li>
                     <li class="item">Contact</li>
                     <button v-if="authUser === true" class="auth" @click="exit()">Выход</button>
                     <template v-else>
-                        <button @click="$router.push('/auth')" class="auth" >Вход</button>
-                        <button class="auth" @click="$router.push('/reg')">Регистрация</button>
+                        <button @click="$router.push('/auth/Auth')" class="auth" >Вход</button>
+                        <button class="auth" @click="$router.push('/reg/Reg')">Регистрация</button>
                     </template>                    
                 </ul>
             </div>
         </div>
         <div class="header-content">
             <div class="header-text">
-                <h1 style="padding-top:25px; padding-bottom: 45px;">{{ namePage }}</h1>
+                <h1 style="padding-top:25px; padding-bottom: 45px;">{{$route.params.name}}</h1>
             </div>
         </div>
     </div>
@@ -29,14 +29,16 @@
 
 <script>
 
+import axios from 'axios'
+
 export default {
   name: 'allHeader',
   components: {
   },
-  props: ['namePage', 'authUser', 'authAdmin'],
   data() {
     return {
-
+        authUser: null,
+        authAdmin: null,
     }
   },
   methods: {
@@ -44,6 +46,30 @@ export default {
         sessionStorage.removeItem("auth_token")
         window.location = '/' 
     },
+    async loadHome() {
+        await axios({
+            method: "GET",
+            headers: {'Authorization': "Bearer " + sessionStorage.getItem("auth_token")},
+            url: "http://localhost:5000/auth/users/"
+        })
+        .then((response => {
+            console.log(response)
+            if (response.status === 200) {
+                this.authUser = true
+            }
+            console.log(this.authUser)
+        }))
+        .catch((error) => {
+            console.log(error)
+        })
+        if (sessionStorage.getItem("auth_token") === this.admin_token) {
+            this.authAdmin = true
+            console.log(this.authAdmin)
+        }
+    }
+  },
+  created() {
+    this.loadHome()
   }
 }
 

@@ -7,13 +7,13 @@
             <div class="header-items">
                 <ul class="items">
                     <li @click="$router.push('/')" class="item">Home</li>
-                    <li @click="$router.push('/doctors')" class="item">Doctors</li>
-                    <li @click="$router.push('/cabinets')" class="item">Cabinets</li>
-                    <li @click="$router.push('/reception')" class="item">Reception</li>
+                    <li @click="$router.push('/doctors/Doctors')" class="item">Doctors</li>
+                    <li @click="$router.push('/cabinets/Cabinets')" class="item">Cabinets</li>
+                    <li @click="$router.push('/reception/Reception')" class="item">Reception</li>
                     <li class="item">Contact</li>
                     <button v-if="authUser === true" class="auth" @click="exit()">Выход</button>
-                    <button v-else class="auth" @click="$router.push('/auth')">Вход</button>
-                    <button v-if="authUser === false" class="auth" @click="$router.push('/reg')">Регистрация</button>                    
+                    <button v-else class="auth" @click="$router.push('/auth/Auth')">Вход</button>
+                    <button v-if="authUser === false" class="auth" @click="$router.push('/reg/Reg')">Регистрация</button>                    
                 </ul>
             </div>
         </div>
@@ -36,7 +36,10 @@ export default {
   components: {
     
   },
-  props: ['authUser', 'authAdmin'],   
+  props: {
+    authUser: Boolean,
+    authAdmin: Boolean,
+  },   
   data() {
     return {
         

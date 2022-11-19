@@ -6,7 +6,6 @@
     </HomeHeader>
     <HomeBoxes/>
     <HomeDepartaments/>
-    <HomeFooter/>
 </template>
 
 <script>
@@ -14,7 +13,6 @@
 import HomeHeader from './v-header-home.vue'
 import HomeBoxes from '../home/v-home-boxes.vue'
 import HomeDepartaments from '../home/v-departaments.vue'
-import HomeFooter from '../home/v-footer.vue'
 
 import axios from 'axios'
 
@@ -24,7 +22,6 @@ export default {
         HomeHeader,
         HomeBoxes,
         HomeDepartaments,
-        HomeFooter,
     },
     data() {
         return {
@@ -34,11 +31,11 @@ export default {
         }
     },
     methods: {
-        loadHome() {
-            axios({
+        async loadHome() {
+            await axios({
                 method: "GET",
-                headers: {'Authorization': "Token " + sessionStorage.getItem("auth_token")},
-                url: "http://127.0.0.1:8000/api/dj-auth/"
+                headers: {'Authorization': "Bearer " + sessionStorage.getItem("auth_token")},
+                url: "http://localhost:5000/auth/users/"
             })
             .then((response => {
                 console.log(response)
@@ -64,5 +61,8 @@ export default {
 </script>
 
 <style>
-
+    html {
+        width:100vw;
+        overflow-x:hidden;
+    }
 </style>

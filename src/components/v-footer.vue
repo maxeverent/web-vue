@@ -38,18 +38,11 @@ export default {
 </script>
 
 <style>
-
-    @font-face {
-        font-family: "Raleway";
-        src: url(../../fonts/Raleway/Raleway-VariableFont_wght.ttf) format("woff2"), 
-        url(../../fonts/Raleway/Raleway-Italic-VariableFont_wght.ttf) format("woff2")
-    }
-
     .footer {
-    width: 100%;
-    max-height: 400px;
-    background-image: url('~@/assets/footer.png');
-    background-size: cover;
+        width: 100%;
+        max-height: 400px;
+        background-image: url('~@/assets/footer.png');
+        background-size: cover;
     }
 
     .footer-content {

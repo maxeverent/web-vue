@@ -1,10 +1,9 @@
 <template>
-    <AllHeader :namePage="namePage"></AllHeader>
     <div style="height: 500px">
         <div class="regBox">
             <h2 class="h2-reg-boxes">Registration</h2>
             <div class="inputs-reg">
-                <input class="reg-input" type="text" placeholder="login" v-model="login">
+                <input class="reg-input" type="text" placeholder="username" v-model="login">
                 <input class="reg-input" type="text" placeholder="password" v-model="password">
                 <input class="reg-input" type="text" placeholder="email" v-model="email">
             </div>
@@ -12,20 +11,13 @@
             <button class="reg-btn" @click="$router.push('/auth')">Вход</button>
         </div>
     </div>
-    <HomeFooter></HomeFooter>
 </template>
 
 <script>
 import axios from 'axios';
-import AllHeader from '../v-header.vue'
-import HomeFooter from '../home/v-footer.vue' 
 
 export default {
     name: 'VReg',
-    components: {
-        AllHeader,
-        HomeFooter,
-    },
     data() {
         return {
             login: '',
@@ -38,16 +30,16 @@ export default {
         }
     },
     methods: {
-        setReg() {
-            axios({
+        async setReg() {
+            await axios({
                 method: 'post',
-                url: 'http://127.0.0.1:8000/api/dj-auth/users/',
+                url: 'http://localhost:5000/auth/reg/',
                 data: {
                     username: this.login,
                     password: this.password,
-                    email: this.email
                 }
             })
+            .then(() => this.$router.push('/'))
         }
     }
 }

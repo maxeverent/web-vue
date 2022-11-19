@@ -1,4 +1,5 @@
 <template>
+    <div class="pop-up-wrapper"></div>
     <div class="pop-up">
         <h1>Add</h1>
         <input v-model="number" type="text" placeholder="Number" class="pop-up-input">
