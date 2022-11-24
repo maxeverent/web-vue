@@ -1,0 +1,114 @@
+@import '/src/styles/variables.scss';
+
+@font-face {
+    font-family: "Raleway";
+    src: url(/src/fonts/Raleway/Raleway-VariableFont_wght.ttf) format("woff2"), 
+    url(/src/fonts/Raleway/Raleway-Italic-VariableFont_wght.ttf) format("woff2") format("woff2")
+}
+
+.home-boxes {
+    display: flex;  
+    max-width: 70%;
+    padding: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    .hours {
+        position: relative;
+        border-radius: 20px;
+        border: 2px solid #dde4ea;
+        padding: 15px;
+        border-color: #18a3eb;
+        width: 30%;
+        .boxes-items {
+            padding: 5px;
+            .boxes-item {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 10px;
+                font-size: 16px;
+                font-weight: 500;
+                color: #828282;
+            }
+        }
+    }
+    .phone {
+        margin-left: 30px;
+        width: 20%;
+        position: relative;
+        border-radius: 20px;
+        border: 2px solid #dde4ea;
+        padding: 32px;
+        border-color: #18a3eb;
+        .phone-number {
+            width: 95%;
+            height: 40px;
+            background: $btn-color;
+            border-radius: 20px;
+            border: none;
+            margin-bottom: 10px;
+            color: white;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+        }
+    }
+    .back-call {
+        margin-left: 30px;
+        width: 50%;
+        position: relative;
+        border-radius: 20px;
+        border: 2px solid #dde4ea;
+        padding: 32px;
+        border-color: #18a3eb;
+        .inputs-back-call {
+            display: flex;
+            flex-direction: column;
+            .back-call-input {
+                color: #828282;
+                background: #f0f4f8;
+                outline: none;
+                border: none;
+                padding: 10px;
+                margin-bottom: 10px;
+                font-size: 16px;
+                font-family: 'Raleway';
+                font-style: italic;
+            }
+        }
+    }
+    .back-call-btn {
+        width: 95%;
+        margin-top: 20px;
+        padding: 12px;
+        border: none;
+        border-radius: 20px;
+        font-family: 'Raleway', sans-serif;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.8;
+        background: $btn-color;
+    }
+}
+.h2-home-boxes {
+    position: absolute;
+    top: -24px;
+    left: -2px;
+    padding-right: 16px;
+    background: #fff;
+    height: 48px;
+}
+
+
+@media screen and (max-width: 1430px) {
+    .home-boxes{
+        max-width: 80%;
+    }
+}
+
+@media screen and (max-width: 1230px) {
+    .home-boxes{
+        max-width: 90%;
+    }
+}
+

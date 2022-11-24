@@ -14,7 +14,7 @@
                     <ui>
                         <label>{{" "}}</label>
                     </ui>
-                </div>
+                   </div>
                 <div class="calendar-item">
                     <ui v-for="day, index in calendar[numberPage].days" :key="index">
                         <button v-if="weekDay.num === getWeekDay(numberPage, day)" @click="sendDay(day, calendar[numberPage].name_mounth)" class="calendar-btn">{{day}}</button>
@@ -103,6 +103,15 @@ export default {
 </script>
 
 <style>
+
+    .reception {
+        display: flex;
+    }
+
+    .calendar {
+        width: 60%;
+    }
+
     .nav {
         width: 560px;
         height: 100px;
@@ -125,6 +134,19 @@ export default {
     .nav-btn {
         width: 70px;
         height: 70px;
+        border-radius: 20px;
+        border: none;
+        font-family: 'Raleway', sans-serif;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.8;
+        background: -moz-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* ff3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(50,200,250,1)), color-stop(100%, rgba(188,125,228,1))); /* safari4+,chrome */
+        background: -webkit-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* safari5.1+,chrome10+ */
+        background: -o-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* opera 11.10+ */
+        background: -ms-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* ie10+ */
+        background: linear-gradient(270deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* w3c */
     }
 
     .calendar-body {
@@ -151,14 +173,28 @@ export default {
     .calendar-title {
         width: 60px;
         height: 60px;
-        margin: 10px;
+        margin: 20px;
         font-size: 25px;
+        text-align: center;
     }
 
     .calendar-btn {
+        border-radius: 20px;
+        border: none;
         width: 60px;
         height: 60px;
         margin: 10px;
+        font-family: 'Raleway', sans-serif;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.8;
+        background: -moz-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* ff3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(50,200,250,1)), color-stop(100%, rgba(188,125,228,1))); /* safari4+,chrome */
+        background: -webkit-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* safari5.1+,chrome10+ */
+        background: -o-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* opera 11.10+ */
+        background: -ms-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* ie10+ */
+        background: linear-gradient(270deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* w3c */
     }
     
 </style>

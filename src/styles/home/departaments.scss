@@ -1,0 +1,73 @@
+@import '../variables.scss';
+@font-face {
+    font-family: "Raleway";
+    src: url(/src/fonts/Raleway/Raleway-VariableFont_wght.ttf) format("woff2"), 
+    url(/src/fonts/Raleway/Raleway-Italic-VariableFont_wght.ttf) format("woff2") format("woff2")
+}
+
+.our-departaments {
+    padding-top: 90px;
+    padding-bottom: 90px;
+    width: 100%;
+    background-image: url('~@/assets/departments.jpg');
+    background-size: cover;
+    .list-departaments {
+        width: 70%;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        background: $btn-color;
+        .h1-header-dep {
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            font-size: 48px;
+            font-weight: 600;
+            text-align: center;
+            color: #fff;
+        }
+        .list-items {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 30px;
+            .list-item {
+                padding: 16px;
+                width: 30%;
+                .h2-header-dep {
+                    margin: 0;
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #fff;
+                }    
+                .p-dep {
+                    font-size: 14px;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1430px) {
+    .our-departaments {
+        .list-departaments {
+            width: 80%;
+            .h1-header-dep {
+                width: 80%;
+            }
+        }
+    }   
+}
+
+@media screen and (max-width: 1230px) {
+    .our-departaments {
+        .list-departaments {
+            width: 90%;
+            .h1-header-dep {
+                width: 90%;
+            }
+        }
+    }   
+}

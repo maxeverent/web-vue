@@ -5,6 +5,7 @@ import vReg from '../components/auth/v-reg.vue'
 import vCabinets from '../components/cabintes/v-cabinets.vue'
 import vDoctors from '../components/doctors/v-doctors.vue'
 import vReception from '../components/receptions/v-reception.vue'
+import vReceptions from '../components/getreceptions/v-receptions'
 
 import vLayout from '../components/v-layout.vue'
 
@@ -32,6 +33,10 @@ const router = createRouter({
                 {
                     path: 'reception/:name',
                     component: vReception,
+                },
+                {
+                    path: 'getRec/:name',
+                    component: vReceptions,
                 },
                 {
                     path: 'auth/:name',

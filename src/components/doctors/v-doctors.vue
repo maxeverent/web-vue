@@ -18,7 +18,7 @@
     <div class="wrapper">
         <div class="table">
             <label class="table-title">Doctors</label>
-            <button @click="addPopUp()" class="add-btn">Add</button>
+            <button v-if="authAdmin" @click="addPopUp()" class="add-btn">Add</button>
             <div class="column">
                 <label class="column-name">Имя</label>
                 <label class="column-name">Фамилия</label>
@@ -57,7 +57,6 @@ export default {
             namePage: 'Doctors',
             authUser: false,
             authAdmin: false,
-            admin_token: "dea957e17a45886df204fd062f432d3dc7fabc8b",
             doctors: null,
             cabinets: null,
             speciality: null,
@@ -158,16 +157,15 @@ export default {
                 console.log(response)
                 if (response.status === 200) {
                     this.authUser = true
+                    this.authAdmin = false
+                    if (response.data.message != 'нет прав') {
+                        this.authAdmin = true
+                    }
                 }
-                console.log(this.authUser)
             }))
             .catch((error) => {
                 console.log(error)
             })
-            if (sessionStorage.getItem("auth_token") === this.admin_token) {
-                this.authAdmin = true
-                console.log(this.authAdmin)
-            }
         },
     },
     created() {

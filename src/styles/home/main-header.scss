@@ -1,0 +1,102 @@
+@import '/src/styles/variables.scss';
+@font-face {
+    font-family: "Raleway";
+        src: url(/src/fonts/Raleway/Raleway-VariableFont_wght.ttf) format("woff2"), 
+        url(/src/fonts/Raleway/Raleway-Italic-VariableFont_wght.ttf) format("woff2")
+}
+
+.header {
+    h1 {
+        font-size: 62px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #404040;
+    }
+    p {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 2;
+        color: #828282;
+    }
+    .header-img {
+        padding-top: 5px;
+    }
+    width: 100%;
+    padding: 20px;
+    background-image: url('~@/assets/header-background.jpg');
+    background-size: cover;
+    .nav-bar {
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
+    }
+    .header-content {
+        max-width: 70%;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        .read-more {
+            cursor: pointer;
+            width: 200px;
+            background: $btn-color;
+            margin-top: 35px;
+            padding: 20px;
+            border-radius: 20px;
+            border: none;
+            color: white;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+        }
+    }
+}
+.items {
+    display: flex;
+    list-style: none;
+    .menu {
+        display: none;
+    }
+    .item {
+        cursor: pointer;
+        margin: 20px;
+    }
+    .auth {
+        cursor: pointer;
+        width: 150px;
+        background: $btn-color;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        color: white;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 1430px) {
+    .header {
+        .nav-bar {
+            width: 80%;
+        }
+        .header-content {
+            width: 80%;
+        }
+    }
+}
+
+@media screen and (max-width: 1230px) {
+    .header {
+        .nav-bar {
+            width: 90%;
+        }
+        .header-content {
+            width: 90%;
+        }
+    }
+}

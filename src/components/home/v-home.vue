@@ -41,16 +41,15 @@ export default {
                 console.log(response)
                 if (response.status === 200) {
                     this.authUser = true
+                    this.authAdmin = false
+                    if (response.data.message != 'нет прав') {
+                        this.authAdmin = true
+                    }
                 }
-                console.log(this.authUser)
             }))
             .catch((error) => {
                 console.log(error)
             })
-            if (sessionStorage.getItem("auth_token") === this.admin_token) {
-                this.authAdmin = true
-                console.log(this.authAdmin)
-            }
         }
     },
     created() {

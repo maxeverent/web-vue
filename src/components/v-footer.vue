@@ -37,24 +37,4 @@ export default {
 
 </script>
 
-<style>
-    .footer {
-        width: 100%;
-        max-height: 400px;
-        background-image: url('~@/assets/footer.png');
-        background-size: cover;
-    }
-
-    .footer-content {
-        padding: 45px;
-        width: 60%;
-        display: flex;
-        justify-content: space-between;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .p-footer {
-        margin-top: 25px;
-    }
-</style>
+<style src="@/styles/home/footer.scss" scoped lang="scss"></style>

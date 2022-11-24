@@ -1,11 +1,10 @@
 <template>
     <addPopUp v-if="addPopUpStatus" class="pop-up" :popUpStatus="addPopUpStatus" @add="addCabinet" @cancel="cancel"></addPopUp>
     <editPopUp v-if="cabinet.editPopUpStatus" class="pop-up" :cabinet="cabinet" @edit="editCabinet" @cancel="cancel"></editPopUp>
-
     <div class="wrapper">
         <div class="table">
             <label class="table-title">Cabinets</label>
-            <button @click="addPopUp()" class="add-btn">Add</button>
+            <button v-if="authAdmin" @click="addPopUp()" class="add-btn">Add</button>
             <div class="column">
                 <label class="column-name">Номер</label>
                 <label class="column-name">Название</label>
@@ -27,7 +26,6 @@
 
 <script>
 
-//import allHeader from '../v-header.vue'
 import rowTable from '../cabintes/v-row-table.vue'
 import addPopUp from './v-pop-up.vue'
 import editPopUp from './v-edit-pop-up.vue'
@@ -37,7 +35,6 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            admin_token: 'dea957e17a45886df204fd062f432d3dc7fabc8b',
             namePage: 'Cabinets',
             authUser: false,
             authAdmin: false,
@@ -67,16 +64,16 @@ export default {
                 console.log(response)
                 if (response.status === 200) {
                     this.authUser = true
+                    this.authAdmin = false
+                    if (response.data.message != 'нет прав') {
+                        this.authAdmin = true
+                    }
                 }
                 console.log(this.authUser)
             }))
             .catch((error) => {
                 console.log(error)
             })
-            if (sessionStorage.getItem("auth_token") === this.admin_token) {
-                this.authAdmin = true
-                console.log(this.authAdmin)
-            }
         },
         async loadCabinets() {
             await axios({url: "http://localhost:5000/cabinet/get/", method: "GET"})
