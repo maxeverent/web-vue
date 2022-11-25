@@ -9,7 +9,7 @@
                     <li @click="$router.push('/')" class="item">Главная</li>
                     <li @click="$router.push('/doctors/Doctors')" class="item">Доктора</li>
                     <li @click="$router.push('/cabinets/Cabinets')" class="item">Кабинеты</li>
-                    <li @click="$router.push('/reception/Reception')" class="item">Записаться</li>
+                    <li @click="$router.push('/reception/Reception')" class="item">Запись</li>
                     <li @click="$router.push('/getRec/Receptions')" class="item">Посмотреть записи</li>
                     <button v-if="authUser === true" class="auth" @click="exit()">Выход</button>
                     <button v-else class="auth" @click="$router.push('/auth/Auth')">Вход</button>
