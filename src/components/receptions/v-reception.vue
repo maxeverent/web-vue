@@ -1,4 +1,9 @@
 <template>
+    <vPopUp 
+        v-if="popUpStatus"
+        @cancel="cancel"
+        :reception="{fname: this.doc.fname, sname: this.doc.sname, patronymic: this.doc.patronymic, doctor_id: Number(this.doc.id), date: this.selectedDate}"
+    ></vPopUp>
     <div class="wrapper">
         <div class="speciality" v-if="page == 1">
             <div class="table">
@@ -44,21 +49,38 @@
         <div class="date" v-if="page == 3">
             <div class="table">
                 <label class="table-title">Reception</label>
-                <label>Выберите дату: {{selectedDate}}</label>
-                <div style="display: flex; justify-content: space-between;">
+                <div style="display: flex; flex-direction: column;">
+                    <button @click="back" class="btn-next-back">Назад</button>
+                    <label style="margin-top: 10px; font-size: 20px;">Выберите дату: {{selectedDate}}</label>
+                </div>
+                <div style="display: flex">
                     <vCalendar @date="date"></vCalendar>
                     <div class="free-date">
                         <div class="date-items">
-                            <button @click="getFreeDate(doc.id, selectedDate)">Получить свободное время</button>
-                            <label>Свободное время:</label>
-                            <button v-for="date, key in freeDate" :key="key" @click="selectDate(date)" class="date-item">{{date}}</button>
+                            <div style="display:flex; flex-direction:column">
+                                <button 
+                                    @click="getFreeDate(doc.id, selectedDate)"
+                                    class="get-free-date"
+                                    >Получить свободное время</button>
+                                <p>Свободное время:</p>
+                            </div>
+                            <div class="items">
+                                <button 
+                                    v-for="date, key in freeDate" 
+                                    :key="key" @click="selectDate(date)" 
+                                    class="date-item"
+                                    >{{date}}</button>
+                            </div>
+                            <div style="display: flex; flex-direction: column">
+                                <button 
+                                @click="reception"
+                                v-if="recStatus"
+                                class="add-reception"
+                                >Записаться</button>
+                                <label style="color: red">{{ errorRec }}</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <button @click="back">Назад</button>
-                    <button>Далее</button>
-                    <button @click="reception">Записаться</button>
                 </div>
             </div>
         </div>           
@@ -68,6 +90,7 @@
 <script>
 
 import vCalendar from '../receptions/v-calendar.vue'
+import vPopUp from '../receptions/v-pop-up.vue'
 
 import axios from 'axios'
 
@@ -82,11 +105,17 @@ export default {
             speciality: [],  
             doctor: [],
             doc: [],
-            freeDate: [], 
+            freeDate: [],
+            recStatus: false,
+            errorRec: ' ',
+            popUpStatus: false,
         }
     },
     name: 'vReceptions',
-    components: { vCalendar },
+    components: { 
+        vCalendar,
+        vPopUp,
+    },
     methods: {
         next(page) {
             if (page == 1) {
@@ -152,32 +181,32 @@ export default {
                     this.freeDate = response.data
                     console.log(this.freeDate)
                 })
-                .catch(err => console.log(err))  
+                .catch(err => console.log(err))
+            this.recStatus = true
         },
         selectDate(date) {
-            this.selectedDate = this.selectedDate + ' ' + date
+            if (this.selectedDate.split(' ').length == 3) {
+                this.selectedDate = this.selectedDate + ' ' + date 
+            }  
+            else { 
+                const selectDate =  this.selectedDate.split(' ')
+                this.selectedDate = selectDate[0] + ' ' + selectDate[1] + ' ' + selectDate[2] + ' ' + date
+            }
         },
         async reception() {
-            await axios({
-                    method: "POST",
-                    url: "http://localhost:5000/reception/create/",
-                    headers: {'Authorization': "Bearer " + sessionStorage.getItem("auth_token")},
-                    data: {
-                        fname: this.doc.fname,
-                        sname: this.doc.sname,
-                        patronymic: this.doc.patronymic,
-                        doctor_id: Number(this.doc.id),
-                        date: this.selectedDate,
-                    }
-                })
-                .then(response => {
-                    console.log(response)
-                })
-                .catch(err => console.log(err))  
+            if (this.selectedDate.split(' ').length == 4) {
+                this.popUpStatus = true
+                this.errorRec = ' '
+            } else {
+                this.errorRec = 'Выберите время'
+            } 
         },
         date(data) {
             this.selectedDate = data[0] + ' ' + data[1] + ' ' + '22'
-        }
+        },
+        cancel(data) {
+            this.popUpStatus = data.popUpStatus
+        },
     },
     created() {
         this.loadSpeciality()
@@ -186,119 +215,4 @@ export default {
 
 </script>
 
-<style>
-
-.nav-rec {
-    display: flex;
-    justify-content: space-between;
-}
-
-.speciality {
-    width: 100%;
-}
-
-.doctor-select {
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.doctors {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-}
-
-.title {
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 25px;
-}
-
-.doctor-item {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 15px;
-    margin-bottom: 25px;
-    width: 300px;
-    height: 50px;
-    border: none;
-    border-radius: 20px;
-    font-family: 'Raleway', sans-serif;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.8;
-    background: -moz-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* ff3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(50,200,250,1)), color-stop(100%, rgba(188,125,228,1))); /* safari4+,chrome */
-    background: -webkit-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* safari5.1+,chrome10+ */
-    background: -o-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* opera 11.10+ */
-    background: -ms-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* ie10+ */
-    background: linear-gradient(270deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* w3c */
-}
-
-.btn-next-back {
-    width: 20%;
-    border-radius: 20px;
-    border: none;
-    height: 50px;
-    color: white;
-    font-family: 'Raleway', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.8;
-    background: -moz-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* ff3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(50,200,250,1)), color-stop(100%, rgba(188,125,228,1))); /* safari4+,chrome */
-    background: -webkit-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* safari5.1+,chrome10+ */
-    background: -o-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* opera 11.10+ */
-    background: -ms-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* ie10+ */
-    background: linear-gradient(270deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* w3c */
-}
-
-.error {
-    color: red;
-    text-align: center;
-    width: 50%;
-    margin-top: 15px;
-    margin-bottom: 25px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.rception {
-    display: flex;
-}
-
-.date-items {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10%;
-}
-
-.time {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.date-item {
-    margin-top: 15px;
-    width: 200px;
-    height: 50px;
-    margin-right: 150px;
-    border-radius: 20px;
-    border: none;
-    color: white;
-    font-family: 'Raleway', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.8;
-    background: -moz-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* ff3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(50,200,250,1)), color-stop(100%, rgba(188,125,228,1))); /* safari4+,chrome */
-    background: -webkit-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* safari5.1+,chrome10+ */
-    background: -o-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* opera 11.10+ */
-    background: -ms-linear-gradient(180deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* ie10+ */
-    background: linear-gradient(270deg, rgba(50,200,250,1) 0%, rgba(88,125,228,1) 100%); /* w3c */
-}
-
-</style>
+<style src="@/styles/receptions/receptions.scss" lang="scss" scoped></style>

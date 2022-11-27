@@ -1,0 +1,84 @@
+@import '/src/styles/variables.scss';
+
+.reception {
+    display: flex;
+}
+
+.calendar {
+    width: 60%;
+}
+
+.nav {
+    width: 560px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-items {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.nav-item {
+    margin: 30px;
+}
+
+.nav-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.8;
+    background: $btn-color;
+}
+
+.calendar-body {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 560px;
+    height: 500px;
+    display: flex;
+}
+
+.empty-item {
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+}
+
+.calendar-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+.calendar-title {
+    width: 60px;
+    height: 60px;
+    margin: 20px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.calendar-btn {
+    border-radius: 20px;
+    border: none;
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.8;
+    background: $btn-color;
+}

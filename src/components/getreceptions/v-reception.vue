@@ -1,10 +1,10 @@
 <template>
-    <div style="width: 1000px; display:flex; justify-content:space-between">
-        <label>{{reception.fname}}</label>
-        <label>{{reception.sname}}</label>
-        <label>{{reception.patronymic}}</label>
-        <label>{{reception.doctor_id}}</label>
-        <label>{{reception.date}}</label>
+    <div class="reception-row">
+        <label class="item">{{reception.fname}}</label>
+        <label class="item">{{reception.sname}}</label>
+        <label class="item">{{reception.patronymic}}</label>
+        <label class="item">{{reception.doctor_id}}</label>
+        <label class="item">{{reception.date}}</label>
     </div>
 </template>
 
@@ -22,3 +22,5 @@ export default {
 }
 
 </script>
+
+<style src="@/styles/allrceptions/reception.scss" lang="scss" scoped></style>

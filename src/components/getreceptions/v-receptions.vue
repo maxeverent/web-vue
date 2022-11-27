@@ -1,5 +1,11 @@
 <template>
-    <vReception v-for="reception, key in receptions" :reception="reception" :key="key"></vReception>
+    <div class="wrapper">
+        <vReception 
+        v-for="reception, key in receptions" 
+        :reception="reception" 
+        :key="key"
+    ></vReception>
+    </div>
     <label v-if="receptions.length == 0">Нет записей</label>
 </template>
 
@@ -32,3 +38,5 @@ export default {
 }
 
 </script>
+
+<style src="@/styles/allrceptions/receptions.scss" lang="scss" scoped></style>

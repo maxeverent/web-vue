@@ -1,0 +1,142 @@
+@import '/src/styles/variables.scss';
+
+p {
+    font-size: 25px;
+}
+
+.nav-rec {
+    display: flex;
+    justify-content: space-between;
+}
+
+.speciality {
+    width: 100%;
+}
+
+.doctor-select {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.doctors {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.title {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
+}
+
+.doctor-item {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    width: 300px;
+    height: 50px;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.8;
+    background: $btn-color;
+}
+
+.btn-next-back {
+    width: 20%;
+    border-radius: 20px;
+    border: none;
+    height: 50px;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.8;
+    background: $btn-color;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    width: 50%;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rception {
+    display: flex;
+}
+
+.date-items {
+    margin-left: 10%;
+    padding: 10px;
+}
+
+.time {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.date-item {
+    margin-top: 15px;
+    width: 60px;
+    height: 50px;
+    margin: 5px;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.8;
+    background: $btn-color;
+}
+
+.free-date {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    padding-top: 40px;
+}
+
+.items {
+    display: wrap;
+    flex-direction: wrap;
+}
+
+.get-free-date {
+    background: $btn-color;
+    margin-bottom: 30px;
+    width: 200px;
+    height: 70px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.8;
+}
+
+.add-reception {
+    margin-top: 20px;
+    width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.8;
+    background: $btn-color;
+}
