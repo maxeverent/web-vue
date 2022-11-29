@@ -39,4 +39,4 @@ export default {
 
 </script>
 
-<style></style>
+<style src="@/styles/doctors/row-table.scss" lang="scss" scoped></style>

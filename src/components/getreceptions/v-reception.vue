@@ -3,7 +3,6 @@
         <label class="item">{{reception.fname}}</label>
         <label class="item">{{reception.sname}}</label>
         <label class="item">{{reception.patronymic}}</label>
-        <label class="item">{{reception.doctor_id}}</label>
         <label class="item">{{reception.date}}</label>
     </div>
 </template>

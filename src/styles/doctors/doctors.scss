@@ -1,0 +1,68 @@
+@import '../variables.scss';
+
+.pop-up {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 500px;
+    padding: 50px;
+    position: absolute;
+    border-radius: 20px;
+    border: 2px solid #dde4ea;
+    border-color: #18a3eb;
+    background-color: white;
+}
+
+.wrapper {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    margin-bottom: 100px;
+    .table {
+        margin-top: 60px;
+        padding: 30px;
+        width: 100%;
+        position: relative;
+        border-radius: 20px;
+        border: 2px solid #dde4ea;
+        border-color: #18a3eb;
+        .table-title {
+            position: absolute;
+            top: -50px;
+            left: 40%;
+            right: 40%;
+            background: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 30px;
+        }
+        .add-btn {
+            margin-top: 15px;
+            margin-bottom: 25px;
+            width: 300px;
+            height: 50px;
+            border: none;
+            border-radius: 20px;
+            font-family: 'Raleway', sans-serif;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.8;
+            background: $btn-color;
+        }
+        .column {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-around;
+            font-size: 25px;
+            text-align: left;
+            .column-name {
+                width: 200px;
+                text-align: left;
+            }
+        }
+    }
+}
+

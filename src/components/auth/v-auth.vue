@@ -45,31 +45,7 @@ export default {
                 console.log(error)             
             })
         }
-        /*loadPage() {
-            axios({
-                method: "GET",
-                headers: {'Authorization': "Token " + sessionStorage.getItem("auth_token")},
-                url: "http://127.0.0.1:8000/api/dj-auth/"
-            })
-            .then((response => {
-                console.log(response)
-                if (response.status === 200) {
-                    this.authUser = true
-                }
-                console.log(this.authUser)
-            }))
-            .catch((error) => {
-                console.log(error)
-            })
-            if (sessionStorage.getItem("auth_token") === this.admin_token) {
-                this.authAdmin = true
-                console.log(this.authAdmin)
-            }
-        } */
     },
-    mounted() {
-        //this.loadPage()
-    }
 }
 
 </script>

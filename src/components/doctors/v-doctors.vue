@@ -84,15 +84,15 @@ export default {
         async deleteDoctor(data) {
             console.log(data)
             await axios({
-                method: "DELETE",
-                url: "http://localhost:5000/doctor/delete"+ data.id + "/"
+                method: "POST",
+                url: "http://localhost:5000/doctor/delete" + "/" + data.id
             }).catch(err => console.log(err))
             this.doctors.splice(data.index, 1)
         },
         async editDoctor(doctor) {
             await axios({
-                method: "PUT",
-                url: "http://localhost:5000/doctor/udapte" + this.doctor.id + "/",
+                method: "POST",
+                url: "http://localhost:5000/doctor/update" + "/" + this.doctor.id,
                 data: {
                     id: this.doctor.id,
                     fname: doctor.fname,
@@ -178,9 +178,4 @@ export default {
 
 </script>
 
-<style>
-    html {
-        width:100vw;
-        overflow-x:hidden;
-    }
-</style>
+<style src="@/styles/doctors/doctors.scss" lang="scss" scoped></style>

@@ -4,6 +4,14 @@ p {
     font-size: 25px;
 }
 
+.wrapper {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    margin-bottom: 100px;
+}
+
 .nav-rec {
     display: flex;
     justify-content: space-between;
@@ -25,10 +33,31 @@ p {
     flex-direction: column;
 }
 
+.table {
+    margin-top: 60px;
+    padding: 30px;
+    width: 100%;
+    position: relative;
+    border-radius: 20px;
+    border: 2px solid #dde4ea;
+    border-color: #18a3eb;
+}
+
 .title {
     margin-left: auto;
     margin-right: auto;
     font-size: 25px;
+}
+
+.table-title {
+    position: absolute;
+    top: -50px;
+    left: 40%;
+    right: 40%;
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
 }
 
 .doctor-item {
