@@ -41,36 +41,10 @@ const router = createRouter({
                 {
                     path: 'auth/:name',
                     component: homeAuth,
-                    beforeEnter: (to, from, next) => {
-                        if (sessionStorage.getItem("auth_token")) {
-                            if (sessionStorage.getItem("auth_token") === "dea957e17a45886df204fd062f432d3dc7fabc8b") {
-                                next()
-                            } 
-                            else {
-                                next({path: '/'})
-                            }
-                        }
-                        else {
-                            next()
-                        }
-                    }
                 },
                 {
                     path: 'reg/:name',
                     component: vReg,
-                    beforeEnter: (to, from, next) => {
-                        if (sessionStorage.getItem("auth_token")) {
-                            if (sessionStorage.getItem("auth_token") === "dea957e17a45886df204fd062f432d3dc7fabc8b") {
-                                next()
-                            } 
-                            else {
-                                next({path: '/'})
-                            }
-                        }
-                        else {
-                            next()
-                        }
-                    }
                 },
             ],
         },

@@ -24,7 +24,6 @@ export default {
             namePage: "Auth",
             authUser: false,
             authAdmin: false,
-            admin_token: "dea957e17a45886df204fd062f432d3dc7fabc8b",
         }
     },
     methods: {
@@ -37,8 +36,32 @@ export default {
                     password: this.password,
                 }
             })
-            .then((response) => {
+            .then(async (response) => {
                 sessionStorage.setItem("auth_token", response.data.token)
+                if (!(sessionStorage.getItem("user"))) {
+                    await axios({
+                        method: "GET",
+                        headers: {'Authorization': "Bearer " + sessionStorage.getItem("auth_token")},
+                        url: "http://localhost:5000/auth/users/"
+                    })
+                    .then((response => {
+                        console.log(response)
+                        if (response.status === 200) {
+                            this.authUser = true
+                            this.authAdmin = false
+                            sessionStorage.setItem("user", true)
+                            sessionStorage.setItem("admin", false)
+                            if (response.data.message != 'нет прав') {
+                                this.authAdmin = true
+                                sessionStorage.setItem("admin", true)
+                            }
+                        }
+                        console.log(this.authUser)
+                    }))
+                    .catch((error) => {
+                        console.log(error)
+                    })
+                }  
                 this.$router.push('/')
             })
             .catch((error) => {

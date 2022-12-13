@@ -25,8 +25,7 @@ export default {
             email: '',
             namePage: "Reg",
             authUser: false,
-            authAdmin: false,
-            admin_token: "dea957e17a45886df204fd062f432d3dc7fabc8b",    
+            authAdmin: false,   
         }
     },
     methods: {

@@ -10,10 +10,12 @@
                     <li @click="$router.push('/doctors/Doctors')" class="item">Доктора</li>
                     <li @click="$router.push('/cabinets/Cabinets')" class="item">Кабинеты</li>
                     <li @click="$router.push('/reception/Reception')" class="item">Запись</li>
-                    <li @click="$router.push('/getRec/Receptions')" class="item">Посмотреть записи</li>
-                    <button v-if="authUser === true" class="auth" @click="exit()">Выход</button>
-                    <button v-else class="auth" @click="$router.push('/auth/Auth')">Вход</button>
-                    <button v-if="authUser === false" class="auth" @click="$router.push('/reg/Reg')">Регистрация</button>                    
+                    <li v-if="authUser == 'true'" @click="$router.push('/getRec/Receptions')" class="item">Посмотреть записи</li>
+                    <button v-if="authUser == 'true'" class="auth" @click="exit()">Выход</button>
+                    <template v-else>
+                        <button @click="$router.push('/auth/Auth')" class="auth" >Вход</button>
+                        <button class="auth" @click="$router.push('/reg/Reg')">Регистрация</button>
+                    </template>                    
                 </ul>
             </div>
         </div>
@@ -42,12 +44,13 @@ export default {
   },   
   data() {
     return {
-        
     }
   },
   methods: {
     exit() {
         sessionStorage.removeItem("auth_token")
+        sessionStorage.removeItem("admin")
+        sessionStorage.removeItem("user")
         window.location = '/' 
     },
   }
