@@ -3,23 +3,27 @@
     <editPopUp v-if="cabinet.editPopUpStatus" class="pop-up" :cabinet="cabinet" @edit="editCabinet" @cancel="cancel"></editPopUp>
     <div class="wrapper">
         <div class="table">
-            <label class="table-title">Cabinets</label>
-            <button v-if="authAdmin" @click="addPopUp()" class="add-btn">Add</button>
-            <div class="column">
-                <label class="column-name">Номер</label>
-                <label class="column-name">Название</label>
-                <label class="column-name">Дни работы</label>
-            </div>
-            <rowTable 
-                v-for="cabinet, key in cabinets" 
-                :key="key"
-                :cabinet="cabinet"
-                :index="key"
-                @deleteCabinet="deleteCabinet"
-                @edit="editPopUp"
-                :authAdmin="authAdmin"
-                :authUser="authUser"
-                ></rowTable>           
+            <label class="table-title">Кабинеты</label>
+            <button v-if="authAdmin == 'true'" @click="addPopUp()" class="add-btn">Add</button>
+            <table style="margin-left: auto; margin-right: auto;">
+                <tr>
+                    <th>Имя</th>
+                    <th>Название</th>
+                    <th>Дни работы</th>
+                    <th v-if="authAdmin == 'true'">Изменить</th>
+                    <th v-if="authAdmin == 'true'">Удалить</th>
+                </tr>
+                <rowTable 
+                    v-for="cabinet, key in cabinets" 
+                    :key="key"
+                    :cabinet="cabinet"
+                    :index="key"
+                    @deleteCabinet="deleteCabinet"
+                    @edit="editPopUp"
+                    :authAdmin="authAdmin"
+                    :authUser="authUser"
+                ></rowTable>
+            </table>          
         </div>
     </div>
 </template>
@@ -36,8 +40,8 @@ export default {
     data() {
         return {
             namePage: 'Cabinets',
-            authUser: false,
-            authAdmin: false,
+            authUser: sessionStorage.getItem("user"),
+            authAdmin: sessionStorage.getItem("admin"),
             cabinets: null,
             addPopUpStatus: false,
             cabinet: {
@@ -54,27 +58,6 @@ export default {
         editPopUp,
     },
     methods: {
-        async loadPage() {
-           await axios({
-                method: "GET",
-                headers: {'Authorization': "Bearer " + sessionStorage.getItem("auth_token")},
-                url: "http://localhost:5000/auth/users/"
-            })
-            .then((response => {
-                console.log(response)
-                if (response.status === 200) {
-                    this.authUser = true
-                    this.authAdmin = false
-                    if (response.data.message != 'нет прав') {
-                        this.authAdmin = true
-                    }
-                }
-                console.log(this.authUser)
-            }))
-            .catch((error) => {
-                console.log(error)
-            })
-        },
         async loadCabinets() {
             await axios({url: "http://localhost:5000/cabinet/get/", method: "GET"})
                 .then(response => {
@@ -131,7 +114,6 @@ export default {
         }
     },
     created() {
-        this.loadPage()
         this.loadCabinets()
     }
 }

@@ -1,11 +1,9 @@
 <template>
     <div class="calendar">
         <div class="nav">
-            <div class="nav-items">
-                <button @click="beforePage" class="nav-item nav-btn" >back</button>
-                <label class="nav-item">{{calendar[numberPage].name_mounth}}</Label>
-                <button @click="nextPage" class="nav-item nav-btn">go</button>
-            </div>
+            <button @click="beforePage" class="nav-item nav-btn" >back</button>
+            <p>{{calendar[numberPage].name_mounth}}</p>
+            <button @click="nextPage" class="nav-item nav-btn">go</button>
         </div>
         <div class="calendar-body">
             <div v-for="weekDay, index in weekDays" :key="index" >

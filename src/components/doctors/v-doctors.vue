@@ -17,25 +17,29 @@
         ></editPopUp> 
     <div class="wrapper">
         <div class="table">
-            <label class="table-title">Doctors</label>
-            <button v-if="authAdmin" @click="addPopUp()" class="add-btn">Add</button>
-            <div class="column">
-                <label class="column-name">Имя</label>
-                <label class="column-name">Фамилия</label>
-                <label class="column-name">Отчество</label>
-                <label class="column-name">Специальность</label>
-                <label class="column-name">Кабинет</label>
-            </div>
-            <rowTable 
-                v-for="doctor, key in doctors" 
-                :key="key"
-                :doctor="doctor"
-                :index="key"
-                @delete="deleteDoctor"
-                @edit="editPopUp"
-                :authUser="authUser"
-                :authAdmin="authAdmin"
-                ></rowTable>           
+            <label class="table-title">Доктора</label>
+            <button v-if="authAdmin == 'true'" @click="addPopUp()" class="add-btn">Add</button>
+            <table style="margin-left: auto; margin-right: auto;">
+                <tr>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Отчество</th>
+                    <th>Специальность</th>
+                    <th>Кабинет</th>
+                    <th v-if="authAdmin == 'true'">Изменить</th>
+                    <th v-if="authAdmin == 'true'">Удалить</th>
+                </tr>
+                <rowTable 
+                    v-for="doctor, key in doctors" 
+                    :key="key"
+                    :doctor="doctor"
+                    :index="key"
+                    @delete="deleteDoctor"
+                    @edit="editPopUp"
+                    :authUser="authUser"
+                    :authAdmin="authAdmin"
+                ></rowTable> 
+            </table>        
         </div>
     </div>
     <vFooter class="footer"></vFooter>
@@ -55,8 +59,8 @@ export default {
             addPopUpStatus: false,
             editPopUpStatus: false,
             namePage: 'Doctors',
-            authUser: false,
-            authAdmin: false,
+            authUser: sessionStorage.getItem("user"),
+            authAdmin: sessionStorage.getItem("admin"),
             doctors: null,
             cabinets: null,
             speciality: null,
@@ -147,32 +151,9 @@ export default {
             this.addPopUpStatus = status
             this.editPopUpStatus = status
         },
-        async loadHome() {
-            await axios({
-                method: "GET",
-                headers: {'Authorization': "Bearer " + sessionStorage.getItem("auth_token")},
-                url: "http://localhost:5000/auth/users/"
-            })
-            .then((response => {
-                console.log(response)
-                if (response.status === 200) {
-                    this.authUser = true
-                    this.authAdmin = false
-                    if (response.data.message != 'нет прав') {
-                        this.authAdmin = true
-                    }
-                }
-            }))
-            .catch((error) => {
-                console.log(error)
-            })
-        },
     },
     created() {
-        this.loadHome()
-        this.loadCabinets()
         this.loadDoctors()
-        this.loadSpeciality()
     }
 }
 

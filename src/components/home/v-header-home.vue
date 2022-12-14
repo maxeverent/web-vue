@@ -7,14 +7,14 @@
             <div class="header-items">
                 <ul class="items">
                     <li @click="$router.push('/')" class="item">Главная</li>
-                    <li @click="$router.push('/doctors/Doctors')" class="item">Доктора</li>
-                    <li @click="$router.push('/cabinets/Cabinets')" class="item">Кабинеты</li>
-                    <li @click="$router.push('/reception/Reception')" class="item">Запись</li>
-                    <li v-if="authUser == 'true'" @click="$router.push('/getRec/Receptions')" class="item">Посмотреть записи</li>
+                    <li @click="$router.push('/doctors/Доктора')" class="item">Доктора</li>
+                    <li @click="$router.push('/cabinets/Кабинеты')" class="item">Кабинеты</li>
+                    <li @click="$router.push('/reception/Запись')" class="item">Запись</li>
+                    <li v-if="authUser == 'true'" @click="$router.push('/getRec/Записи')" class="item">Посмотреть записи</li>
                     <button v-if="authUser == 'true'" class="auth" @click="exit()">Выход</button>
                     <template v-else>
-                        <button @click="$router.push('/auth/Auth')" class="auth" >Вход</button>
-                        <button class="auth" @click="$router.push('/reg/Reg')">Регистрация</button>
+                        <button @click="$router.push('/auth/Вход')" class="auth" >Вход</button>
+                        <button class="auth" @click="$router.push('/reg/Регистрация')">Регистрация</button>
                     </template>                    
                 </ul>
             </div>

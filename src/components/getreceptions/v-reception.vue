@@ -1,10 +1,10 @@
 <template>
-    <div class="reception-row">
-        <label class="item">{{reception.fname}}</label>
-        <label class="item">{{reception.sname}}</label>
-        <label class="item">{{reception.patronymic}}</label>
-        <label class="item">{{reception.date}}</label>
-    </div>
+    <tr>
+        <td class="item">{{reception.fname}}</td>
+        <td class="item">{{reception.sname}}</td>
+        <td class="item">{{reception.patronymic}}</td>
+        <td class="item">{{reception.date}}</td>
+    </tr>
 </template>
 
 <script>

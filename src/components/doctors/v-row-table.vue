@@ -1,15 +1,13 @@
 <template>
-    <div class="row">
-        <label class="item-table">{{doctor.fname}}</label>
-        <label class="item-table">{{doctor.sname}}</label>
-        <label class="item-table">{{doctor.patronymic}}</label>
-        <label class="item-table">{{doctor.speciality}}</label>
-        <label class="item-table">{{doctor.cabinet_id}}</label>
-        <div class="btns">
-            <button v-if="authAdmin" @click="editDoctor()" class="btn-crud">Edit</button>
-            <button v-if="authAdmin" @click="deleteDoctor()" class="btn-crud">Delete</button>
-        </div>
-    </div>
+    <tr>
+        <td class="item-table">{{doctor.fname}}</td>
+        <td class="item-table">{{doctor.sname}}</td>
+        <td class="item-table">{{doctor.patronymic}}</td>
+        <td class="item-table">{{doctor.speciality}}</td>
+        <td class="item-table">{{doctor.cabinet_id}}</td>
+        <td v-if="authAdmin == 'true'"><button @click="editDoctor()" class="btn-crud">Edit</button></td>
+        <td v-if="authAdmin == 'true'"><button @click="deleteDoctor()" class="btn-crud">Delete</button></td>
+    </tr>
 </template>
 
 <script>
@@ -22,8 +20,8 @@ export default {
     props: {
         index: Number,
         doctor: Object,
-        authUser: Boolean,
-        authAdmin: Boolean,
+        authUser: String,
+        authAdmin: String,
     },
     methods: {
         deleteDoctor() {

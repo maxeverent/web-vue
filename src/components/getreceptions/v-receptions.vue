@@ -8,17 +8,19 @@
     <div class="wrapper" v-else>
         <div class="table">
             <label class="table-title">Записи</label>
-            <div class="column">
-                <label class="column-name">Ф. доктора</label>
-                <label class="column-name">И. доктора</label>
-                <label class="column-name">О. доктора</label>
-                <label class="column-name">Дата</label>
-            </div>
-            <vReception 
-                v-for="reception, key in receptions" 
-                :reception="reception" 
-                :key="key"
-            ></vReception>
+            <table>
+                <tr>
+                    <th>Ф. доктора</th>
+                    <th>И. доктора</th>
+                    <th>О. доктора</th>
+                    <th>Дата</th>
+                </tr>
+                <vReception 
+                    v-for="reception, key in receptions" 
+                    :reception="reception" 
+                    :key="key"
+                ></vReception>
+            </table>
         </div>
     </div>
 </template>

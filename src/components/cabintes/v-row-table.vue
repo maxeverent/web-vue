@@ -1,11 +1,11 @@
 <template>
-    <div class="row">
-        <label class="item-table">{{cabinet.number}}</label>
-        <label class="item-table">{{cabinet.name}}</label>
-        <label class="item-table">{{cabinet.date_working}}</label>
-        <button v-if="authAdmin" @click="editCabinet()" class="btn-crud">Edit</button>
-        <button v-if="authAdmin" @click="deleteCabinet()" class="btn-crud">Delete</button>
-    </div>
+    <tr>
+        <td class="item-table">{{cabinet.number}}</td>
+        <td class="item-table">{{cabinet.name}}</td>
+        <td class="item-table">{{cabinet.date_working}}</td>
+        <td><button v-if="authAdmin == 'true'" @click="editCabinet()" class="btn-crud">Edit</button></td>
+        <td><button v-if="authAdmin == 'true'" @click="deleteCabinet()" class="btn-crud">Delete</button></td>
+    </tr>
 </template>
 
 <script>
@@ -20,8 +20,8 @@ export default {
     props: {
         cabinet: Object,
         index: Number,
-        authAdmin: Boolean,
-        authUser: Boolean
+        authAdmin: String,
+        authUser: String,
     },
     methods: {
         deleteCabinet() {

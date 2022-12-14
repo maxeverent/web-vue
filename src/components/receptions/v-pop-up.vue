@@ -2,14 +2,13 @@
     <div class="pop-up-wrapper"></div>
     <div class="pop-up">
         <h1>Подтверждение</h1>
-        <p>Хотите записаться?</p>
-        <label></label>
-        <label></label>
-        <label></label>
-        <label></label>
-        <label></label>
-        <button @click="rec()">Записаться</button>
-        <button @click="cancel()">Отмена</button>
+        <label>{{ reception.fname }}</label>
+        <label>{{ reception.sname }}</label>
+        <label>{{ reception.patronymic }}</label>
+        <label>{{ reception.spec }}</label>
+        <label>{{ reception.date }}</label>
+        <button @click="rec()" class="pop-up-btn">Записаться</button>
+        <button @click="cancel()" class="pop-up-btn">Отмена</button>
     </div>
 </template>
 

@@ -12,10 +12,6 @@ import vFooter from './components/v-footer.vue'
 export default {
   name: 'App',
   components: { vFooter },
-  data() {
-  
-  },
-
 }
 </script>
 

@@ -8,13 +8,7 @@
 import vHeader from './v-header.vue'
 
 export default {
-    data() {
-        return {
-
-        }
-    },
     components: { vHeader },
-    
 }
 
 </script>

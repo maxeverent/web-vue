@@ -1,5 +1,9 @@
 @import '../variables.scss';
 
+th {
+    font-size: 23px;
+}
+
 .pop-up {
     display: flex;
     flex-direction: column;

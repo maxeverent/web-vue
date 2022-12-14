@@ -2,15 +2,12 @@
     <vPopUp 
         v-if="popUpStatus"
         @cancel="cancel"
-        :reception="{fname: this.doc.fname, sname: this.doc.sname, patronymic: this.doc.patronymic, doctor_id: Number(this.doc.id), date: this.selectedDate}"
+        :reception="{fname: this.doc.fname, sname: this.doc.sname, patronymic: this.doc.patronymic, spec: selectedSpec, date: this.selectedDate}"
     ></vPopUp>
-    <div class="wrapper">
+    <div class="wrapper" v-if="authUser == 'true'">
         <div class="speciality" v-if="page == 1">
             <div class="table">
-                <label class="table-title">Reception</label>
-                <div class="nav-rec">
-                    <button @click="next(page)" class="btn-next-back">Далее</button>
-                </div>
+                <label class="table-title">Запись</label>
                 <div class="doctor-select">
                     <div class="doctors">
                         <label class="title">Выберите специальность: {{selectedSpec}}</label>
@@ -19,18 +16,16 @@
                             :key="key" 
                             @click="selectSpec(spec.name)" 
                             class="doctor-item"
-                            >{{spec.name}}</button>
-                        <label class="error">{{error}}</label>
+                        >{{spec.name}}</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="doctor" v-if="page == 2">
             <div class="table">
-                <label class="table-title">Reception</label>
+                <label class="table-title">Запись</label>
                 <div class="nav-rec">
                     <button @click="back" class="btn-next-back">Назад</button>
-                    <button @click="next(page)" class="btn-next-back">Далее</button>
                 </div>
                 <div class="doctor-select">
                     <div class="doctors">
@@ -41,49 +36,44 @@
                             @click="selectDoc(doc)"
                             class="doctor-item"
                             >{{doc.fname + ' ' + doc.fname + ' ' + doc.patronymic}}</button>
-                        <label class="error">{{error}}</label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="date" v-if="page == 3">
             <div class="table">
-                <label class="table-title">Reception</label>
+                <label class="table-title">Запись</label>
                 <div style="display: flex; flex-direction: column;">
                     <button @click="back" class="btn-next-back">Назад</button>
                     <label style="margin-top: 10px; font-size: 20px;">Выберите дату: {{selectedDate}}</label>
                 </div>
-                <div style="display: flex">
+                <div>
                     <vCalendar @date="date"></vCalendar>
                     <div class="free-date">
                         <div class="date-items">
                             <div style="display:flex; flex-direction:column">
-                                <button 
-                                    @click="getFreeDate(doc.id, selectedDate)"
-                                    class="get-free-date"
-                                    >Получить свободное время</button>
                                 <p>Свободное время:</p>
                             </div>
-                            <div class="items">
-                                <button 
-                                    v-for="date, key in freeDate" 
-                                    :key="key" @click="selectDate(date)" 
-                                    class="date-item"
+                            <div class="date">
+                                <div class="items">
+                                    <button 
+                                        v-for="date, key in freeDate" 
+                                        :key="key" @click="selectDate(date)" 
+                                        class="date-item"
                                     >{{date}}</button>
-                            </div>
-                            <div style="display: flex; flex-direction: column">
-                                <button 
-                                @click="reception"
-                                v-if="recStatus"
-                                class="add-reception"
-                                >Записаться</button>
-                                <label style="color: red">{{ errorRec }}</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>           
+    </div>
+    <div v-else class="wrapper">
+        <div class="table">
+            <label class="table-title">Запись</label>
+            <h1>Зарегистрируйтесь</h1>
+        </div>
     </div>
 </template>
 
@@ -97,8 +87,9 @@ import axios from 'axios'
 export default {
     data() {
         return {
+            authUser: sessionStorage.getItem("user"),
+            authAdmin: sessionStorage.getItem("admin"),
             page: 1,
-            error: ' ',
             selectedSpec: '',
             selectedDoc: '',
             selectedDate: '',
@@ -107,7 +98,6 @@ export default {
             doc: [],
             freeDate: [],
             recStatus: false,
-            errorRec: ' ',
             popUpStatus: false,
         }
     },
@@ -117,22 +107,6 @@ export default {
         vPopUp,
     },
     methods: {
-        next(page) {
-            if (page == 1) {
-                if (this.selectedSpec == '') {
-                    this.error = 'Выберите специальность'
-                } else {
-                    this.page = this.page + 1
-                }
-            }
-            if (page == 2) {
-                if (this.selectedDoc == '') {
-                    this.error = 'Выберите доктора'
-                } else {
-                    this.page = this.page + 1
-                }
-            }
-        },
         back() {
             this.page = this.page - 1
         },
@@ -162,13 +136,12 @@ export default {
         },
         selectSpec(spec) {
             this.selectedSpec = spec
+            this.page = this.page + 1
             this.loadDoctor()
-            this.error = ''
         },
         selectDoc(doc) {
-            this.selectedDoc = doc.fname + ' ' + doc.fname + ' ' + doc.patronymic
             this.doc = doc
-            this.error = ''
+            this.page = this.page + 1
         },
         async getFreeDate(doc, selectedDate) {
             console.log(doc, selectedDate)
@@ -192,6 +165,7 @@ export default {
                 const selectDate =  this.selectedDate.split(' ')
                 this.selectedDate = selectDate[0] + ' ' + selectDate[1] + ' ' + selectDate[2] + ' ' + date
             }
+            this.reception()
         },
         async reception() {
             if (this.selectedDate.split(' ').length == 4) {
@@ -203,13 +177,14 @@ export default {
         },
         date(data) {
             this.selectedDate = data[0] + ' ' + data[1] + ' ' + '22'
+            this.getFreeDate(this.doc.id, this.selectedDate)
         },
         cancel(data) {
             this.popUpStatus = data.popUpStatus
         },
     },
     created() {
-        this.loadSpeciality()
+        this.loadSpeciality() 
     }
 }
 

@@ -1,26 +1,26 @@
 @import '/src/styles/variables.scss';
 
+p {
+    text-align: center;
+    padding-top: 35px;
+    width: 290px;
+}
+
 .reception {
     display: flex;
 }
 
 .calendar {
-    width: 60%;
+    height: 580px;
 }
 
 .nav {
+    display: flex;
     width: 560px;
     height: 100px;
     margin-left: auto;
     margin-right: auto;
-}
-
-.nav-items {
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
     font-size: 30px;
-    margin-top: 20px;
 }
 
 .nav-item {
