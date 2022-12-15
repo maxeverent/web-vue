@@ -10,6 +10,7 @@
                     <li @click="$router.push('/doctors/Доктора')" class="item">Доктора</li>
                     <li @click="$router.push('/cabinets/Кабинеты')" class="item">Кабинеты</li>
                     <li @click="$router.push('/reception/Запись')" class="item">Запись</li>
+                    <li v-if="authUser == 'true'" @click="$router.push('/exam/Медосмотр')" class="item">Медосмотр</li>
                     <li v-if="authUser == 'true'" @click="$router.push('/getRec/Записи')" class="item">Посмотреть записи</li>
                     <button v-if="authUser == 'true'" class="auth" @click="exit()">Выход</button>
                     <template v-else>

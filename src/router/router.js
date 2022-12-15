@@ -6,6 +6,7 @@ import vCabinets from '../components/cabintes/v-cabinets.vue'
 import vDoctors from '../components/doctors/v-doctors.vue'
 import vReception from '../components/receptions/v-reception.vue'
 import vReceptions from '../components/getreceptions/v-receptions'
+import vExam from '../components/exam/v-exam'
 
 import vLayout from '../components/v-layout.vue'
 
@@ -46,6 +47,10 @@ const router = createRouter({
                     path: 'reg/:name',
                     component: vReg,
                 },
+                {
+                    path: 'exam/:name',
+                    component: vExam,
+                }
             ],
         },
     ]

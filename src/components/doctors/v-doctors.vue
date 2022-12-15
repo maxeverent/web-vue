@@ -154,6 +154,8 @@ export default {
     },
     created() {
         this.loadDoctors()
+        this.loadSpeciality()
+        this.loadCabinets()
     }
 }
 
