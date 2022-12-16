@@ -12,9 +12,7 @@
                 <div class="doctor-select">
                     <div class="doctors">
                         <label class="title">Выберите специальности:</label>
-                        <div style="display: flex">
-                            <vSpeciality v-for="spec, key in selectedSpec" :key="key" :id="key" :spec = spec @deleteSpec="deleteSpec"></vSpeciality>
-                        </div>
+                        <vSpeciality v-for="spec, key in selectedSpec" :key="key" :speciality="spec" :id="key" @deleteSpec="deleteSpec"></vSpeciality>
                         <button 
                             v-for="spec, key in speciality" 
                             :key="key" 
@@ -34,6 +32,7 @@
                 <div class="doctor-select">
                     <div class="doctors">
                         <label class="title">Выберите доктора: {{selectedDoc}}</label>
+                        <div></div>
                         <button 
                             v-for="doc, key in doctor" 
                             :key="key" 
@@ -99,7 +98,7 @@ export default {
         }
     },
     components: {
-        vSpeciality
+        vSpeciality,
     },
     methods: {
         next() {

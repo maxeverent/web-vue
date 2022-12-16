@@ -1,6 +1,6 @@
 <template>
-    <div class="body">
-        <p>{{ spec }}</p>
+    <div style="dispaly: flex">
+        <p>{{ speciality }}</p>
         <button @click="deleteSpec()">X</button>
     </div>
 </template>
@@ -10,7 +10,7 @@
 export default {
     props: {
         id: Number,
-        spec: String,
+        speciality: String
     },
     methods: {
         deleteSpec() {
@@ -20,13 +20,3 @@ export default {
 }
 
 </script>
-
-
-
-<style>
-
-.body {
-    display: flex;
-}
-
-</style>
