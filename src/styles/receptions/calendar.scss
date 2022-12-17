@@ -38,6 +38,7 @@ p {
     font-weight: 600;
     line-height: 1.8;
     background: $btn-color;
+    cursor: pointer;
 }
 
 .calendar-body {
@@ -81,4 +82,10 @@ p {
     font-weight: 600;
     line-height: 1.8;
     background: $btn-color;
+    cursor: pointer;
+}
+
+.workingdays {
+    background: rgb(28,152,184);
+    background: linear-gradient(90deg, rgba(28,152,184,0.4990371148459384) 38%, rgba(28,152,184,0.4514180672268907) 100%);
 }

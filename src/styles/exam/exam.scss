@@ -83,6 +83,7 @@ p {
     font-weight: 600;
     line-height: 1.8;
     background: $btn-color;
+    cursor: pointer;
 }
 
 .btn-next-back {
@@ -96,6 +97,7 @@ p {
     font-weight: 600;
     line-height: 1.8;
     background: $btn-color;
+    cursor: pointer;
 }
 
 .rception {
@@ -170,4 +172,25 @@ p {
     font-weight: 600;
     line-height: 1.8;
     background: $btn-color;
+}
+
+.error {
+    color:red; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.create {
+    width: 200px;
+    border-radius: 20px;
+    border: none;
+    height: 50px;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.8;
+    background: $btn-color;
+    cursor: pointer;
+    margin: 0 auto 0 auto;
 }
