@@ -112,6 +112,7 @@ export default {
                 .then(response => console.log(response))
                 .catch(err => console.log(err))
             }
+            this.$router.push('/getRec/Записи')
         },
         async loadSpeciality() {
             await axios({url: "http://localhost:5000/speciality/get"})

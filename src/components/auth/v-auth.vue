@@ -4,10 +4,11 @@
             <h2 class="h2-auth-boxes">Вход</h2>
             <div class="inputs-auth">
                 <input class="auth-input" type="text" placeholder="username" v-model="login">
-                <input class="auth-input" type="text" placeholder="password" v-model="password">
+                <input class="auth-input" type="password" placeholder="password" v-model="password">
             </div>
             <button class="auth-btn" @click="setLogin()">Вход</button>
-            <button class="auth-btn" @click="$router.push('/reg')">Регистрация</button>
+            <button class="auth-btn" @click="$router.push('/reg/Регистрация')">Регистрация</button>
+            <p style="color: red; text-align: center; margin-top: 35px">{{ error }}</p>
         </div>
     </div>
 </template>
@@ -24,6 +25,7 @@ export default {
             namePage: "Auth",
             authUser: false,
             authAdmin: false,
+            error: '', 
         }
     },
     methods: {
@@ -61,11 +63,12 @@ export default {
                     .catch((error) => {
                         console.log(error)
                     })
-                }  
+                } 
+                this.error = '' 
                 this.$router.push('/')
             })
             .catch((error) => {
-                console.log(error)             
+                this.error = error.response.data.message          
             })
         }
     },

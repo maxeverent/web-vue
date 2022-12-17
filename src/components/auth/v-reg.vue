@@ -4,11 +4,11 @@
             <h2 class="h2-reg-boxes">Регистрация</h2>
             <div class="inputs-reg">
                 <input class="reg-input" type="text" placeholder="username" v-model="login">
-                <input class="reg-input" type="text" placeholder="password" v-model="password">
-                <input class="reg-input" type="text" placeholder="email" v-model="email">
+                <input class="reg-input" type="password" placeholder="password" v-model="password">
             </div>
             <button class="reg-btn" @click="setReg()">Регистрация</button>
-            <button class="reg-btn" @click="$router.push('/auth')">Вход</button>
+            <button class="reg-btn" @click="$router.push('/auth/Вход')">Вход</button>
+            <p style="color: red; text-align: center; margin-top: 35px">{{ error }}</p>
         </div>
     </div>
 </template>
@@ -25,7 +25,8 @@ export default {
             email: '',
             namePage: "Reg",
             authUser: false,
-            authAdmin: false,   
+            authAdmin: false,  
+            error: '', 
         }
     },
     methods: {
@@ -38,7 +39,11 @@ export default {
                     password: this.password,
                 }
             })
-            .then(() => this.$router.push('/'))
+            .then(() => {
+                this.error = ''
+                this.$router.push('/')
+            })
+            .catch((err) => this.error = err.response.data.errors.errors[0].msg)
         }
     }
 }
