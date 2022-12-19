@@ -2,7 +2,7 @@
     <vPopUp 
         v-if="popUpStatus"
         @cancel="cancel"
-        :reception="{fname: this.doc.fname, sname: this.doc.sname, patronymic: this.doc.patronymic, spec: selectedSpec, date: this.selectedDate}"
+        :reception="{fname: this.doc.fname, sname: this.doc.sname, patronymic: this.doc.patronymic, spec: selectedSpec, date: this.selectedDate, doctor_id: doc.id}"
     ></vPopUp>
     <div class="wrapper" v-if="authUser == 'true'">
         <div class="speciality" v-if="page == 1">

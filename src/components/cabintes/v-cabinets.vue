@@ -5,25 +5,28 @@
         <div class="table">
             <label class="table-title">Кабинеты</label>
             <button v-if="authAdmin == 'true'" @click="addPopUp()" class="add-btn">Add</button>
-            <table style="margin-left: auto; margin-right: auto;">
-                <tr>
-                    <th>Имя</th>
-                    <th>Название</th>
-                    <th>Дни работы</th>
-                    <th v-if="authAdmin == 'true'">Изменить</th>
-                    <th v-if="authAdmin == 'true'">Удалить</th>
-                </tr>
-                <rowTable 
-                    v-for="cabinet, key in cabinets" 
-                    :key="key"
-                    :cabinet="cabinet"
-                    :index="key"
-                    @deleteCabinet="deleteCabinet"
-                    @edit="editPopUp"
-                    :authAdmin="authAdmin"
-                    :authUser="authUser"
-                ></rowTable>
-            </table>          
+            <template v-if="cabinets.length != 0">
+                <table style="margin-left: auto; margin-right: auto;">
+                    <tr>
+                        <th>Имя</th>
+                        <th>Название</th>
+                        <th>Дни работы</th>
+                        <th v-if="authAdmin == 'true'">Изменить</th>
+                        <th v-if="authAdmin == 'true'">Удалить</th>
+                    </tr>
+                    <rowTable 
+                        v-for="cabinet, key in cabinets" 
+                        :key="key"
+                        :cabinet="cabinet"
+                        :index="key"
+                        @deleteCabinet="deleteCabinet"
+                        @edit="editPopUp"
+                        :authAdmin="authAdmin"
+                        :authUser="authUser"
+                    ></rowTable>
+                </table>
+            </template>
+            <p v-else style="font-size: 25px; text-align: center; margin-top: 5px;">Записей нет</p>         
         </div>
     </div>
 </template>
@@ -42,7 +45,7 @@ export default {
             namePage: 'Cabinets',
             authUser: sessionStorage.getItem("user"),
             authAdmin: sessionStorage.getItem("admin"),
-            cabinets: null,
+            cabinets: [],
             addPopUpStatus: false,
             cabinet: {
                 id: '',

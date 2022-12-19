@@ -100,13 +100,13 @@ export default {
             }
             else {
                 const exam = {
-                speciality: this.selectedSpec,
-                date: this.selectedDate,
-                auth_token: sessionStorage.getItem("auth_token")
+                    speciality: this.selectedSpec,
+                    date: this.selectedDate,
                 }
                 await axios({
                     method: "POST",
                     url: "http://localhost:5000/exam/create",
+                    headers: {'Authorization': "Bearer " + sessionStorage.getItem("auth_token")},
                     data: exam
                 })
                 .then(response => console.log(response))

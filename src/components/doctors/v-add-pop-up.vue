@@ -5,10 +5,10 @@
         <input v-model="doctor.fname" type="text" placeholder="First name" class="pop-up-input">
         <input v-model="doctor.sname" type="text" placeholder="Second name" class="pop-up-input">
         <input v-model="doctor.patronymic" type="text" placeholder="Patronymic" class="pop-up-input">
-        <select v-model="selectedSpeciality">
+        <select v-model="selectedSpeciality" class="pop-up-input">
             <option v-for="spec, key in speciality" :key="key">{{spec.name}}</option>
         </select>
-        <select v-model="selectedCabinet">
+        <select v-model="selectedCabinet" class="pop-up-input">
             <option v-for="cabinet, key in cabinets" :key="key">{{cabinet.number}}</option>
         </select>
         <button @click="addDoctor()" class="pop-up-btn">Add</button>

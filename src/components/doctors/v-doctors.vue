@@ -19,27 +19,30 @@
         <div class="table">
             <label class="table-title">Доктора</label>
             <button v-if="authAdmin == 'true'" @click="addPopUp()" class="add-btn">Add</button>
-            <table style="margin-left: auto; margin-right: auto;">
-                <tr>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>Отчество</th>
-                    <th>Специальность</th>
-                    <th>Кабинет</th>
-                    <th v-if="authAdmin == 'true'">Изменить</th>
-                    <th v-if="authAdmin == 'true'">Удалить</th>
-                </tr>
-                <rowTable 
-                    v-for="doctor, key in doctors" 
-                    :key="key"
-                    :doctor="doctor"
-                    :index="key"
-                    @delete="deleteDoctor"
-                    @edit="editPopUp"
-                    :authUser="authUser"
-                    :authAdmin="authAdmin"
-                ></rowTable> 
-            </table>        
+            <template v-if="doctors.length != 0">
+                <table style="margin-left: auto; margin-right: auto;">
+                    <tr>
+                        <th>Имя</th>
+                        <th>Фамилия</th>
+                        <th>Отчество</th>
+                        <th>Специальность</th>
+                        <th>Кабинет</th>
+                        <th v-if="authAdmin == 'true'">Изменить</th>
+                        <th v-if="authAdmin == 'true'">Удалить</th>
+                    </tr>
+                    <rowTable 
+                        v-for="doctor, key in doctors" 
+                        :key="key"
+                        :doctor="doctor"
+                        :index="key"
+                        @delete="deleteDoctor"
+                        @edit="editPopUp"
+                        :authUser="authUser"
+                        :authAdmin="authAdmin"
+                    ></rowTable> 
+                </table>
+            </template>
+            <p v-else style="font-size: 25px; text-align: center; margin-top: 5px;">Записей нет</p>      
         </div>
     </div>
     <vFooter class="footer"></vFooter>
@@ -61,7 +64,7 @@ export default {
             namePage: 'Doctors',
             authUser: sessionStorage.getItem("user"),
             authAdmin: sessionStorage.getItem("admin"),
-            doctors: null,
+            doctors: [],
             cabinets: null,
             speciality: null,
             doctor: {
